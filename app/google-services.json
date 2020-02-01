@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "937150427940",
+    "firebase_url": "https://avid-folder-266718.firebaseio.com",
+    "project_id": "avid-folder-266718",
+    "storage_bucket": "avid-folder-266718.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937150427940:android:ce76bf1bff4d0ef4eeb9b1",
+        "android_client_info": {
+          "package_name": "com.projet.fitapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937150427940-ul70se7spcf4539muctiprf8busrqrq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.projet.fitapp",
+            "certificate_hash": "eaab94312b1bb1eb9ce0b1a54e5d0c0a0bc3d590"
+          }
+        },
+        {
+          "client_id": "937150427940-478k4pa3uojikcei9q7gu8r5abkl33lm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7hrOEo6TrEkct2rQeRXipo83mVVy6VDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937150427940-478k4pa3uojikcei9q7gu8r5abkl33lm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

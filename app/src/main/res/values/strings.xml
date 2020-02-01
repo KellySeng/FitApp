@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FitApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="profile_edit_nickname">Please enter a new nickname</string>
+    <string name="profile_edit_height">Please enter your height in centimeters</string>
+    <string name="profile_edit_weight">Please enter your weight in kilograms</string>
+    <string name="profile_edit_age">Please enter your birth date</string>
+    <string name="profile_edit_title">Editing</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">CANCEL</string>
+</resources>
