@@ -1,20 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/goal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="20sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:text="Current goal : "
+        android:textSize="20sp" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goal"
+        android:id="@+id/setGoal"
+        android:layout_centerInParent="true"
+        android:background="@color/colorPrimary"
+        android:text="EDIT GOAL"></Button>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Activity Fragment"
+        android:layout_below="@+id/setGoal"
+        android:paddingTop="10sp"
+        android:id="@+id/step_count"
+        android:textSize="30sp"
+        android:layout_centerInParent="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/step_count"
+        android:id="@+id/total"
         android:textSize="30sp"
         android:layout_centerInParent="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/log"
-        android:textSize="10sp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/total"
+        app:srcCompat="@mipmap/ic_victory" />
 
 
 </RelativeLayout>

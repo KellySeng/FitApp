@@ -379,7 +379,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String activity = arrayAdapter.getItem(which);
-                mDatabaseProfileReference.child("activity").setValue(activity);
+                mDatabaseProfileReference.child("activityLevel").setValue(activity);
                 textActivity.setText(activity);
 
             }

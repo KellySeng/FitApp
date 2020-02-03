@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference mDatabaseReference;
     private DatabaseReference mDatabaseUserReference;
     private DatabaseReference mDatabaseProfileReference;
-    private static int GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 10;
+    private DatabaseReference mDatabaseGoalReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDatabaseReference = mDatabase.getReference();
         mDatabaseUserReference = mDatabaseReference.child("users");
         mDatabaseProfileReference = mDatabaseReference.child("profiles");
+        mDatabaseGoalReference = mDatabaseReference.child("goals");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -74,12 +79,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA},1053);
+        }
 
         //handle device rotation
         if (savedInstanceState == null) {
             //open fragment activity
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new ActivityFragment()).commit();
+                    new WelcomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_github);
             onClickLogInItem();
 
@@ -104,10 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_activity:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ActivityFragment()).commit();
-                break;
-            case R.id.nav_schedule:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ScheduleFragment()).commit();
                 break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -172,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             final TextView name = findViewById(R.id.nav_name);
                             name.setText(account.getDisplayName());
 
+
                             TextView email = findViewById(R.id.nav_email);
                             email.setText(account.getEmail());
 
@@ -181,7 +187,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             //save user in firebase
                             final String id = Integer.toString(account.getEmail().hashCode());
 
-
+                            isSigned = true;
+                            updateMenuLogState();
                             mDatabaseProfileReference.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -190,8 +197,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                 account.getEmail());
                                         Profile p = new Profile("", "", "", "",
                                                 "", "", "");
+                                        Goal g = new Goal("undefined");
                                         mDatabaseUserReference.child(id).setValue(u);
                                         mDatabaseProfileReference.child(id).setValue(p);
+                                        mDatabaseGoalReference.child(id).setValue(g);
                                     } else {
                                         String nickname = dataSnapshot.child(id)
                                                 .child("nickname").getValue().toString();
@@ -253,10 +262,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         photo.setImageResource(R.mipmap.ic_launcher_round);
        // Toast.makeText(this, "You have been disconnected", Toast.LENGTH_SHORT).show();
 
-        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-        homeIntent.addCategory( Intent.CATEGORY_HOME );
-        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(homeIntent);
+        finishAndRemoveTask();
     }
 
     /**
